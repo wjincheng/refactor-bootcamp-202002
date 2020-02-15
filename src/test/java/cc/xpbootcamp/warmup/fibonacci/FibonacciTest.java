@@ -16,7 +16,21 @@ public class FibonacciTest {
 
         //when
         Fibonacci fibonacci = new Fibonacci();
-        int result = fibonacci.calculate(1);
+        int result = fibonacci.calculate(position);
+
+        //then
+        assertEquals(result, 1);
+
+    }
+
+    @Test
+    public void should_return_2_when_calculate_given_position_is_1() {
+        //given
+        int position = 2;
+
+        //when
+        Fibonacci fibonacci = new Fibonacci();
+        int result = fibonacci.calculate(position);
 
         //then
         assertEquals(result, 1);
