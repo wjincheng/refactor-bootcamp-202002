@@ -1,15 +1,20 @@
 package cc.xpbootcamp.warmup.fibonacci;
 
 public class Fibonacci {
-    int init = 2;
 
     public int calculate(int position) {
-        if (position <= init) {
+        int[] positionArray =new int[position];
+
+        if (position == 1 || position == 2) {
             return 1;
         }
-        if (position == 3) {
-            return 2;
+        
+        positionArray[0] = 1;
+        positionArray[1] = 1;
+
+        for (int index = 2; index < positionArray.length; index ++) {
+            positionArray[index] = positionArray[index -1] + positionArray[index - 2];
         }
-        return 3;
+        return positionArray[position - 1];
     }
 }

@@ -31,7 +31,6 @@ public class FibonacciTest {
 
         //then
         assertEquals(result, 1);
-
     }
 
     @Test
@@ -45,7 +44,6 @@ public class FibonacciTest {
 
         //then
         assertEquals(result, 2);
-
     }
 
     @Test
@@ -59,7 +57,19 @@ public class FibonacciTest {
 
         //then
         assertEquals(result, 3);
+    }
 
+    @Test
+    public void should_return_10_when_calculate_given_position_is_55() {
+        //given
+        int position = 10;
+
+        //when
+        Fibonacci fibonacci = new Fibonacci();
+        int result = fibonacci.calculate(position);
+
+        //then
+        assertEquals(result, 55);
     }
 
 }
