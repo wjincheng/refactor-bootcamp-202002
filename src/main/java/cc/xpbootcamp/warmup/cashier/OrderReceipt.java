@@ -9,49 +9,56 @@ package cc.xpbootcamp.warmup.cashier;
  */
 public class OrderReceipt {
     private Order order;
+    private StringBuilder output;
 
     public OrderReceipt(Order order) {
         this.order = order;
+        this.output = new StringBuilder();
     }
 
     public String printReceipt() {
-        StringBuilder output = new StringBuilder();
-
-        // print headers
-        output.append("======Printing Orders======\n");
-
-        // print date, bill no, customer name
-//        output.append("Date - " + order.getDate();
-        output.append(order.getCustomerName());
-        output.append(order.getCustomerAddress());
-//        output.append(order.getCustomerLoyaltyNumber());
-
-        // prints lineItems
-        double totSalesTx = 0d;
-        double tot = 0d;
-        for (LineItem lineItem : order.getLineItems()) {
-            output.append(lineItem.getDescription());
-            output.append('\t');
-            output.append(lineItem.getPrice());
-            output.append('\t');
-            output.append(lineItem.getQuantity());
-            output.append('\t');
-            output.append(lineItem.totalAmount());
-            output.append('\n');
-
-            // calculate sales tax @ rate of 10%
-            double salesTax = lineItem.totalAmount() * .10;
-            totSalesTx += salesTax;
-
-            // calculate total amount of lineItem = price * quantity + 10 % sales tax
-            tot += lineItem.totalAmount() + salesTax;
-        }
-
-        // prints the state tax
-        output.append("Sales Tax").append('\t').append(totSalesTx);
-
-        // print total amount
-        output.append("Total Amount").append('\t').append(tot);
+        addHeader();
+        addCustomer();
+        addProductInfo();
+        addSalesTax();
+        addTotalAmount();
         return output.toString();
     }
+
+    private void addHeader() {
+        output.append("======Printing Orders======\n");
+    }
+
+    private void addCustomer() {
+        output.append(order.getCustomerName());
+        output.append(order.getCustomerAddress());
+    }
+
+    private void addProductInfo() {
+        for (LineItem lineItem : order.getLineItems()) {
+            output.append(lineItem.getDescription()).append('\t');
+            output.append(lineItem.getPrice()).append('\t');
+            output.append(lineItem.getQuantity()).append('\t');
+            output.append(lineItem.totalAmount()).append('\n');
+        }
+    }
+
+    private void addSalesTax() {
+        output.append("Sales Tax").append('\t').append(getTotalSalesTax());
+    }
+
+    private void addTotalAmount() {
+        double total = getTotalOrderPrice() + getTotalSalesTax();
+        output.append("Total Amount").append('\t').append(total);
+    }
+
+    private double getTotalSalesTax() {
+        double salesTaxRate = 0.1;
+        return getTotalOrderPrice() * salesTaxRate;
+    }
+
+    private double getTotalOrderPrice() {
+        return order.getLineItems().stream().mapToDouble(LineItem::totalAmount).sum();
+    }
+
 }
