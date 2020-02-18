@@ -1,5 +1,12 @@
 package cc.xpbootcamp.warmup.cashier;
 
+import static java.util.Calendar.WEDNESDAY;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * OrderReceipt prints the details of order including customer name, address, description, quantity,
  * price and amount. It also calculates the sales tax @ 10% and prints as part
@@ -10,6 +17,7 @@ package cc.xpbootcamp.warmup.cashier;
 public class OrderReceipt {
     private Order order;
     private StringBuilder output;
+    private Date date = new Date();
 
     public OrderReceipt(Order order) {
         this.order = order;
@@ -18,20 +26,40 @@ public class OrderReceipt {
 
     public String printReceipt() {
         addHeader();
+        addDate();
         addCustomer();
         addProductInfo();
         addSalesTax();
+        addDiscount();
         addTotalAmount();
         return output.toString();
     }
 
+    private void addDiscount(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        if (calendar.get(Calendar.DAY_OF_WEEK) == WEDNESDAY) {
+            output.append("折扣:")
+                .append('\t')
+                .append(order.getDiscount())
+                .append('\n');
+        }
+    }
+
+    private void addDate(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年M月d日，EEEE", Locale.CHINA);
+        output.append(simpleDateFormat.format(date))
+        .append("\n");
+    }
+
     private void addHeader() {
-        output.append("======Printing Orders======\n");
+        output.append("======老王超市，值得信赖======\n");
     }
 
     private void addCustomer() {
-        output.append(order.getCustomerName());
-        output.append(order.getCustomerAddress());
+        output.append(order.getCustomerName())
+            .append(order.getCustomerAddress())
+            .append('\n');
     }
 
     private void addProductInfo() {
@@ -44,21 +72,13 @@ public class OrderReceipt {
     }
 
     private void addSalesTax() {
-        output.append("Sales Tax").append('\t').append(getTotalSalesTax());
+        output.append("税额:").append('\t').append(order.getTotalSalesTax())
+            .append('\n');
     }
 
     private void addTotalAmount() {
-        double total = getTotalOrderPrice() + getTotalSalesTax();
-        output.append("Total Amount").append('\t').append(total);
-    }
-
-    private double getTotalSalesTax() {
-        double salesTaxRate = 0.1;
-        return getTotalOrderPrice() * salesTaxRate;
-    }
-
-    private double getTotalOrderPrice() {
-        return order.getLineItems().stream().mapToDouble(LineItem::totalAmount).sum();
+        output.append("总价:").append('\t').append(order.getTotalPrice())
+            .append('\n');
     }
 
 }

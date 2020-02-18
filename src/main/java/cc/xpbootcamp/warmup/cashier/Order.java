@@ -1,5 +1,9 @@
 package cc.xpbootcamp.warmup.cashier;
 
+import static java.util.Calendar.WEDNESDAY;
+
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class Order {
@@ -23,5 +27,29 @@ public class Order {
 
     public List<LineItem> getLineItems() {
         return lineItemList;
+    }
+
+    public double getTotalSalesTax() {
+        double salesTaxRate = 0.1;
+        return getTotalOrderPrice() * salesTaxRate;
+    }
+
+    public double getTotalOrderPrice() {
+        return lineItemList.stream().mapToDouble(LineItem::totalAmount).sum();
+    }
+
+    public  double getTotalPrice() {
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        if (calendar.get(Calendar.DAY_OF_WEEK) == WEDNESDAY) {
+            return getTotalOrderPrice() + getTotalSalesTax() - getDiscount();
+        }
+        return getTotalOrderPrice() + getTotalSalesTax();
+    }
+
+    public double getDiscount() {
+        double discountRate = 0.02;
+        return discountRate * getTotalOrderPrice();
     }
 }
