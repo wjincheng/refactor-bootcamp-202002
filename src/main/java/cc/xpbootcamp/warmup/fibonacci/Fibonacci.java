@@ -2,8 +2,8 @@ package cc.xpbootcamp.warmup.fibonacci;
 
 public class Fibonacci {
 
-    public int calculate(int position) {
-        int[] positionArray =new int[position];
+    public long calculate(int position) {
+        long[] positionArray =new long[position];
 
         if (position == 1 || position == 2) {
             return 1;

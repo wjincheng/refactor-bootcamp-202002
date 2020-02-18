@@ -2,6 +2,8 @@ package cc.xpbootcamp.warmup.fibonacci;
 
 import org.junit.Test;
 
+import java.math.BigInteger;
+
 import static org.junit.Assert.assertEquals;
 
 
@@ -13,7 +15,7 @@ public class FibonacciTest {
 
         //when
         Fibonacci fibonacci = new Fibonacci();
-        int result = fibonacci.calculate(position);
+        long result = fibonacci.calculate(position);
 
         //then
         assertEquals(result, 1);
@@ -27,7 +29,7 @@ public class FibonacciTest {
 
         //when
         Fibonacci fibonacci = new Fibonacci();
-        int result = fibonacci.calculate(position);
+        long result = fibonacci.calculate(position);
 
         //then
         assertEquals(result, 1);
@@ -40,7 +42,7 @@ public class FibonacciTest {
 
         //when
         Fibonacci fibonacci = new Fibonacci();
-        int result = fibonacci.calculate(position);
+        long result = fibonacci.calculate(position);
 
         //then
         assertEquals(result, 2);
@@ -53,7 +55,7 @@ public class FibonacciTest {
 
         //when
         Fibonacci fibonacci = new Fibonacci();
-        int result = fibonacci.calculate(position);
+        long result = fibonacci.calculate(position);
 
         //then
         assertEquals(result, 3);
@@ -66,10 +68,23 @@ public class FibonacciTest {
 
         //when
         Fibonacci fibonacci = new Fibonacci();
-        int result = fibonacci.calculate(position);
+        long result = fibonacci.calculate(position);
 
         //then
         assertEquals(result, 55);
+    }
+
+    @Test
+    public void should_return_50_when_calculate_given_position_is_12586269025() {
+        //given
+        int position = 50;
+
+        //when
+        Fibonacci fibonacci = new Fibonacci();
+        long result = fibonacci.calculate(position);
+
+        //then
+        assertEquals(result, 12586269025L);
     }
 
 }
