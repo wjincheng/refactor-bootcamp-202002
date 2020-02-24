@@ -39,13 +39,17 @@ public class Order {
     }
 
     public  double getTotalPrice() {
-        Date date = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        if (calendar.get(Calendar.DAY_OF_WEEK) == WEDNESDAY) {
+        if (isDiscount()) {
             return getTotalOrderPrice() + getTotalSalesTax() - getDiscount();
         }
         return getTotalOrderPrice() + getTotalSalesTax();
+    }
+
+    public boolean isDiscount(){
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.DAY_OF_WEEK) == WEDNESDAY;
     }
 
     public double getDiscount() {

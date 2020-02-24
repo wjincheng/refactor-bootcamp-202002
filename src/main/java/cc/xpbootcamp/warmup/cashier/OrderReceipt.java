@@ -36,9 +36,7 @@ public class OrderReceipt {
     }
 
     private void addDiscount(){
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        if (calendar.get(Calendar.DAY_OF_WEEK) == WEDNESDAY) {
+        if (order.isDiscount()) {
             output.append("折扣:")
                 .append('\t')
                 .append(order.getDiscount())
