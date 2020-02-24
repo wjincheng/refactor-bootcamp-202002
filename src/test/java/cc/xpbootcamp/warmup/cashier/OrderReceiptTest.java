@@ -14,17 +14,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 
 class OrderReceiptTest {
-    @Test
-    void shouldPrintCustomerInformationOnOrder() {
-        Order order = new Order("Mr X", "Chicago, 60601", new ArrayList<>());
-        OrderReceipt receipt = new OrderReceipt(order);
-
-        String output = receipt.printReceipt();
-
-
-        assertThat(output, containsString("Mr X"));
-        assertThat(output, containsString("Chicago, 60601"));
-    }
 
     @Test
     public void shouldPrintLineItemAndSalesTaxInformation() {
@@ -33,7 +22,7 @@ class OrderReceiptTest {
             add(new LineItem("biscuits", 5.0, 5));
             add(new LineItem("chocolate", 20.0, 1));
         }};
-        OrderReceipt receipt = new OrderReceipt(new Order(null, null, lineItems));
+        OrderReceipt receipt = new OrderReceipt(new Order(lineItems));
         Date date = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -54,7 +43,7 @@ class OrderReceiptTest {
 
     @Test
     public void shouldPrintHeaderInformationOnOrder() {
-        Order order = new Order(null, null, new ArrayList<>());
+        Order order = new Order(new ArrayList<>());
         OrderReceipt receipt = new OrderReceipt(order);
 
         String output = receipt.printReceipt();
@@ -65,7 +54,7 @@ class OrderReceiptTest {
 
     @Test
     public void shouldPrintDateInformationOnOrder() {
-        Order order = new Order(null, null, new ArrayList<>());
+        Order order = new Order(new ArrayList<>());
         OrderReceipt receipt = new OrderReceipt(order);
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年M月d日，EEEE", Locale.CHINA);

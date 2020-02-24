@@ -28,7 +28,6 @@ public class OrderReceipt {
     public String printReceipt() {
         addHeader();
         addDate();
-        addCustomer();
         addProductInfo();
         addSalesTax();
         addDiscount();
@@ -53,12 +52,6 @@ public class OrderReceipt {
 
     private void addHeader() {
         output.append("======老王超市，值得信赖======\n");
-    }
-
-    private void addCustomer() {
-        output.append(order.getCustomerName())
-            .append(order.getCustomerAddress())
-            .append('\n');
     }
 
     private void addProductInfo() {
