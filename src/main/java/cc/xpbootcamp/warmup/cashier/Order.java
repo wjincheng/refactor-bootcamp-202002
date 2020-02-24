@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Order {
-    List<LineItem> lineItemList;
+    private List<LineItem> lineItemList;
 
     public Order(List<LineItem> lineItemList) {
         this.lineItemList = lineItemList;
